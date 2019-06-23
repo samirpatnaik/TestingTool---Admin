@@ -1,0 +1,76 @@
+<div id="wrapper">
+
+  <app-sidemenu></app-sidemenu>
+
+  <div id="content-wrapper">
+
+    <div class="container-fluid">
+
+      <!-- Breadcrumbs-->
+      <ol class="breadcrumb">
+          <li class="breadcrumb-item">
+              <a [routerLink]="['/admin/dashboard']" >Dashboard</a>
+            </li>
+            <li class="breadcrumb-item active">Multiple Option Questions</li>
+        
+      </ol>
+
+      
+      <div class="card mb-3">
+        <div class="card-header">
+          <i class="fas fa-question"></i>
+          Multiple Option Questions List</div>
+         
+        <div class="card-body"> 
+          <div class="col-md-6">
+            <!-- /* /admin/master/sessionmaster/addnewsession */ -->
+            <a routerLink="addnewquestion" class="btn btn-info">Add New Question</a>
+          </div>
+          <br>
+          <div class="table-responsive">
+            <table  class="table  table-hover"> 
+              <thead>
+                <tr>
+                  <th>Question</th>
+                  <th>Time in Seconds</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              
+              <tbody *ngIf="questionlist?.length != 0">
+                <tr *ngFor="let rec of questionlist">
+                  <td>{{rec.question_title}}</td>
+                  <td>{{rec.allowtime}}</td>
+                  <td class="btn-group">
+                      <a type="button" class="btn btn-warning" [routerLink]="['editquestion',rec._id]"><i class="fa fa-edit"></i></a>
+                      <button type="button" class="btn btn-danger" (click)="delete_multiquestion(rec._id)"><i class="fa fa-trash"></i></button>
+                    </td>
+                </tr>
+                
+              </tbody>
+              <tbody *ngIf="questionlist?.length == 0">
+                <tr>
+                    <td colspan="3" class="no-data-available">No data found!</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        
+      </div>
+
+    </div>
+    <!-- /.container-fluid -->
+
+    <app-footer></app-footer>
+
+  </div>
+  <!-- /.content-wrapper -->
+
+</div>
+<!-- /#wrapper -->
+
+<!-- Scroll to Top Button-->
+<a class="scroll-to-top rounded" href="#page-top">
+  <i class="fas fa-angle-up"></i>
+</a>

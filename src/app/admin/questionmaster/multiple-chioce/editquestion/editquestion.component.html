@@ -1,0 +1,149 @@
+<div id="wrapper">
+
+  <app-sidemenu></app-sidemenu>
+
+  <div id="content-wrapper">
+
+    <div class="container-fluid">
+
+      <!-- Breadcrumbs-->
+      <ol class="breadcrumb">
+          <li class="breadcrumb-item">
+              <a [routerLink]="['/admin/dashboard']" >Dashboard</a>
+            </li>
+            <li class="breadcrumb-item">
+                <a [routerLink]="['/admin/questionmaster/multioption']" >Multiple Option Questions List</a>
+              </li>
+            <li class="breadcrumb-item active">Update Question</li>
+        
+      </ol>
+
+      
+      <div class="card mb-3">
+        <div class="card-header">
+            <i class="fas fa-question"></i>
+          Update Existing Question</div>
+         
+        <div class="card-body"> 
+            <form [formGroup]="editMultiQuestionForm" (ngSubmit)="update_question()">
+                <div class="error">{{strMessage}}</div>
+                <div class="form-group ">
+                  <div class="form-row">
+                    <div class="col-md-12">
+                      <label >Question</label>
+                      <div>
+                          <textarea rows="4" id="title" class="form-control" formControlName="question_title" [ngClass]="{ 'is-invalid': submitted && f.question_title.errors }" >
+                          </textarea>
+                          <input class="form-control" type="hidden" formControlName="rid" readonly>
+                      </div>
+                      <div *ngIf="submitted && f.question_title.errors" class="invalid-feedback">
+                        <div *ngIf="f.question_title.errors.required">This field is required</div>
+                      </div>
+                    </div>
+                    
+                  </div>
+                </div>
+                
+                <div class="form-group">
+                  <div class="form-row">
+                    <div class="col-md-6">
+                      <div class="form-label-group">
+                        <input type="text" id="opt1" class="form-control" placeholder="Option 1" formControlName="answer1"  [ngClass]="{ 'is-invalid': submitted && f.answer1.errors }">
+                        <label for="opt1">Option 1</label>
+                      </div>
+                      <div *ngIf="submitted && f.answer1.errors" class="invalid-feedback">
+                        <div *ngIf="f.answer1.errors.required">This field is required</div>
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-label-group">
+                            <input type="text" id="opt2" class="form-control" placeholder="Option 2" formControlName="answer2"  [ngClass]="{ 'is-invalid': submitted && f.answer2.errors }">
+                            <label for="opt2">Option 2</label>
+                          </div>
+                          <div *ngIf="submitted && f.answer2.errors" class="invalid-feedback">
+                            <div *ngIf="f.answer2.errors.required">This field is required</div>
+                          </div>
+        
+                    </div>
+                  </div>
+                </div>
+                <div class="form-group">
+                    <div class="form-row">
+                      <div class="col-md-6">
+                        <div class="form-label-group">
+                          <input type="text" id="opt3" class="form-control" placeholder="Option 3" formControlName="answer3"  [ngClass]="{ 'is-invalid': submitted && f.answer3.errors }">
+                          <label for="opt3">Option 3</label>
+                        </div>
+                        <div *ngIf="submitted && f.answer3.errors" class="invalid-feedback">
+                          <div *ngIf="f.answer3.errors.required">This field is required</div>
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                          <div class="form-label-group">
+                              <input type="text" id="opt4" class="form-control" placeholder="Option 4" formControlName="answer4">
+                              <label for="opt4">Option 4</label>
+                            </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                      <div class="form-row">
+                        <div class="col-md-6">
+                            <div class="form-label-group">
+                                <input type="text" id="opt5" class="form-control" placeholder="Option 5" formControlName="answer5">
+                                <label for="opt5">Option 5</label>
+                              </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-label-group">
+                              <select class="form-control" formControlName="correctanswer">
+                                <option value="">-- Select Correct Option --</option>
+                                <option value="A">Option 1</option>
+                                <option value="B">Option 2</option>
+                                <option value="C">Option 3</option>
+                                <option value="D">Option 4</option>
+                                <option value="E">Option 5</option>
+                              </select>
+                            </div>
+                            <div *ngIf="submitted && f.correctanswer.errors" class="invalid-feedback">
+                              <div *ngIf="f.correctanswer.errors.required">This field is required</div>
+                            </div>
+                          </div>
+                      </div>
+                </div>
+                <div class="form-group">
+                  <div class="form-row">
+                    <div class="col-md-6">
+                        <div class="form-label-group">
+                            <input type="number" id="allowtime" class="form-control" placeholder="Allow time in seconds" formControlName="allowtime"   [ngClass]="{ 'is-invalid': submitted && f.allowtime.errors }">
+                            <label for="allowtime">Allow time in seconds</label>
+                        </div>
+                        <div *ngIf="submitted && f.allowtime.errors" class="invalid-feedback">
+                          <div *ngIf="f.allowtime.errors.required">This field is required</div>
+                        </div>
+                    </div>
+                  </div>
+                </div>
+                <input type="submit" class="btn btn-primary btn-block" value="Save Changes">
+                
+              </form>
+          
+        </div>
+        
+      </div>
+
+    </div>
+    <!-- /.container-fluid -->
+
+    <app-footer></app-footer>
+
+  </div>
+  <!-- /.content-wrapper -->
+
+</div>
+<!-- /#wrapper -->
+
+<!-- Scroll to Top Button-->
+<a class="scroll-to-top rounded" href="#page-top">
+  <i class="fas fa-angle-up"></i>
+</a>
