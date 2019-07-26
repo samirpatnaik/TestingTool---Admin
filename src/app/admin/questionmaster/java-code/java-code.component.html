@@ -40,7 +40,7 @@
               <tbody *ngIf="questionlist?.length != 0">
                 <tr *ngFor="let rec of questionlist">
                   <td>{{rec.question_title}}</td>
-                  <td>{{rec.allowtime}}</td>
+                  <td>{{rec.allowtime/60}}</td>
                   <td class="btn-group">
                       <a type="button" class="btn btn-warning" [routerLink]="['editquestion',rec._id]"><i class="fa fa-edit"></i></a>
                       <button type="button" class="btn btn-danger" (click)="delete_javacode(rec._id)"><i class="fa fa-trash"></i></button>

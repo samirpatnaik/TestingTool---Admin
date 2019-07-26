@@ -10,6 +10,7 @@ var schema = new Schema({
     answer5:{type:String},
     correctanswer:{type:String},
     allowtime:{type:Number},
+    qtype : {type : String, default : 'multi'},
     creation_dt:{type:Date, require:true}
 });
 

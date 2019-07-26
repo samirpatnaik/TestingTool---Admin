@@ -19,7 +19,8 @@ async function addToDB(req, res) {
 
   var newquestion = new CodeQuestion({
     question_title : req.body.question_title,
-    allowtime:req.body.allowtime,
+    allowtime:(req.body.allowtime)*60,
+    inputItems : req.body.inputItems,
     creation_dt: Date.now()
   });
 
@@ -60,7 +61,12 @@ router.get('/editcodequestion/:id',isValidUser, (req,res) =>{
 
 /* Update existing question */
 router.post('/updatecodequestion',isValidUser, function(req, res) {
-  CodeQuestion.findOneAndUpdate({_id:req.body.rid}, req.body, function (err, place) {
+  var editquestion = {
+    question_title : req.body.question_title,
+    allowtime:(req.body.allowtime)*60,
+    inputItems : req.body.inputItems
+  }
+  CodeQuestion.findOneAndUpdate({_id:req.body.rid}, editquestion, function (err, place) {
         res.send(place);
     });
 });

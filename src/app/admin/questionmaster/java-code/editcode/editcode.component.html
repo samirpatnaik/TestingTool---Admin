@@ -40,6 +40,11 @@
                         <div *ngIf="f.question_title.errors.required">This field is required</div>
                       </div>
                     </div>
+                  </div>
+                </div>
+                
+                <div class="form-group ">
+                  <div class="form-row">
                     <div class="col-md-12">
                       <label >Allow time in minutes</label>
                       <div>
@@ -51,6 +56,73 @@
                     </div>
                   </div>
                 </div>
+
+                <button type="button" (click)="addItem()">Add Test Parameter</button>
+                <div formArrayName="inputItems">
+                  <div *ngFor="let itemrow of editJavaCodeForm.controls.inputItems.controls; let i=index"  [formGroupName]="i">
+                      <p><strong>Parameter Section {{i+1}}</strong> </p>
+                      <div class="form-group">
+                        <div class="form-row">
+                          <div class="col-md-6">
+                            <div class="form-label-group">
+                                <input formControlName="param1" id="{{'a'+i}}" type="text" class="form-control" placeholder="Parameter 1" [ngClass]="{ 'is-invalid': submitted && itemrow.controls.param1.errors }" />
+                              <label for="{{'a'+i}}">Parameter 1</label>
+                            </div>
+                            <div *ngIf="submitted && itemrow.controls.param1.errors" class="invalid-feedback">
+                                <div *ngIf="itemrow.controls.param1.errors.required">This field is required</div>
+                              </div>
+                          </div>
+                          <div class="col-md-6">
+                              <div class="form-label-group">
+                                  <input type="text" id="{{'b'+i}}" class="form-control" placeholder="Parameter 2" formControlName="param2" [ngClass]="{ 'is-invalid': submitted && itemrow.controls.param2.errors }">
+                                  <label for="{{'b'+i}}">Parameter 2</label>
+                                </div>
+                                <div *ngIf="submitted && itemrow.controls.param2.errors" class="invalid-feedback">
+                                    <div *ngIf="itemrow.controls.param2.errors.required">This field is required</div>
+                                  </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <div class="form-row">
+                          <div class="col-md-6">
+                            <div class="form-label-group">
+                              <input type="text" id="{{'c'+i}}" class="form-control" placeholder="Parameter 3" formControlName="param3">
+                              <label for="{{'c'+i}}">Parameter 3</label>
+                            </div>
+                          </div>
+                          <div class="col-md-6">
+                              <div class="form-label-group">
+                                <input type="text" id="{{'d'+i}}" class="form-control" placeholder="Parameter 4" formControlName="param4">
+                                <label for="{{'d'+i}}">Parameter 4</label>
+                              </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <div class="form-row">
+                          <div class="col-md-6">
+                            <div class="form-label-group">
+                              <input type="text" id="{{'e'+i}}" class="form-control" placeholder="Parameter 5" formControlName="param5">
+                              <label for="{{'e'+i}}">Parameter 5</label>
+                            </div>
+                          </div>
+                          <div class="col-md-6">
+                            <div class="form-label-group">
+                              <input type="text" id="{{'f'+i}}" class="form-control" placeholder="Result" formControlName="result" [ngClass]="{ 'is-invalid': submitted && itemrow.controls.result.errors }">
+                              <label for="{{'f'+i}}">Result</label>
+                            </div>
+                            <div *ngIf="submitted && itemrow.controls.result.errors" class="invalid-feedback">
+                                <div *ngIf="itemrow.controls.result.errors.required">This field is required</div>
+                              </div>
+                          </div>
+                        </div>
+                      </div>              
+                      <button *ngIf="editJavaCodeForm.controls.inputItems.controls.length > 1" type="button" (click)="delInput(i)">Delete</button>
+                  </div>
+                </div> 
+              
+                <br/>
                 <input type="submit" class="btn btn-primary btn-block" value="Save Changes">
                 
               </form>
