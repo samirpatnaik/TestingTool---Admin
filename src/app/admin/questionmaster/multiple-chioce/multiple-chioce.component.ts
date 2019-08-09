@@ -57,10 +57,6 @@ export class MultipleChioceComponent implements OnInit, OnDestroy, AfterViewInit
               } else {
                 this.message = 'Question deleted successfully';
                 setTimeout(function() {
-                 /* this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
-                    dtInstance.destroy();
-                    this.dtTrigger.next();     
-                  });*/
                   this.getMultiOptionQuestionlist();
                   this.message = false;
                 }.bind(this),1000);

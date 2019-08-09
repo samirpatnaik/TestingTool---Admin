@@ -8,6 +8,8 @@ import { AdminComponent } from './admin.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { CommonfileModule} from './commonfile/commonfile.module';
 import { ChangepasswordComponent } from './changepassword/changepassword.component';
+import { UserlistComponent } from './userlist/userlist.component';
+import { UserdetailsComponent } from './userlist/userdetails/userdetails.component';
 
 @NgModule({
   imports: [
@@ -17,6 +19,6 @@ import { ChangepasswordComponent } from './changepassword/changepassword.compone
     CommonfileModule,
     ReactiveFormsModule
   ],
-  declarations: [ AdminComponent, DashboardComponent, ChangepasswordComponent]
+  declarations: [ AdminComponent, DashboardComponent, ChangepasswordComponent, UserlistComponent, UserdetailsComponent]
 })
 export class AdminModule { }

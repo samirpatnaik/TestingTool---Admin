@@ -4,6 +4,8 @@ import { ModuleWithProviders } from '@angular/core';
 import {AdminComponent} from './admin.component';
 import {DashboardComponent} from './dashboard/dashboard.component';
 import {ChangepasswordComponent} from './changepassword/changepassword.component';
+import {UserlistComponent} from './userlist/userlist.component';
+import {UserdetailsComponent} from './userlist/userdetails/userdetails.component';
 
 import {AuthGuardService} from '../services/auth-guard.service';
 
@@ -25,6 +27,16 @@ const routes: Routes = [
         {
           path: 'changepassword',
           component: ChangepasswordComponent,
+          canActivate: [AuthGuardService]
+        },
+        {
+          path: 'userslist',
+          component: UserlistComponent,
+          canActivate: [AuthGuardService]
+        },
+        {
+          path: 'userslist/userdetails/:id',
+          component: UserdetailsComponent,
           canActivate: [AuthGuardService]
         },
         {
