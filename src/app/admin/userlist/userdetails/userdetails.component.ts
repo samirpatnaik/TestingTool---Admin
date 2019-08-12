@@ -10,12 +10,13 @@ import { ActivatedRoute, Params } from '@angular/router';
 export class UserdetailsComponent implements OnInit {
 
   constructor(private userService: UserService, private _router:ActivatedRoute) { }
-
+  userinfo : {} ;
   ngOnInit() {
     this.userService.registeruserByID(this._router.snapshot.paramMap.get('id')).subscribe(
         qinfo =>{
-          console.log(qinfo)
+          this.userinfo = qinfo;console.log(this.userinfo);
         });
+    
   }
 
 }

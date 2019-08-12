@@ -29,125 +29,38 @@ router.get('/userdetails/:id',isValidUser, (req,res) =>{
       return res.status(404).send();
   }
   
-  RegisterUser.findById(id).exec()
-    .then(function(user){
-      var data = [];
-      return PostedAnswers.find({user_id: user._id}).exec()
-        .then(function(postedanswer){
-          return [user, postedanswer];
-        });
-    })
-    .then(function(data){
-      var project = data[1];
-      jsonArray = JSON.parse(JSON.stringify(project));
-      jsonArray.forEach(function(element) {
-        if(element.qtype == 'multi'){        
-          return MultiQuestion.find({_id: element.question_id}).exec()
-          .then(function(multiquestion) {
-            data.push(multiquestion);
-            return data;
-          });
-        }else if(element.qtype == 'code'){
-          return CodeQuestion.find({_id: element.question_id}).exec()
-          .then(function(codequestion) {
-            data.push(codequestion);
-            return data;
-          });          
-        }
-      });
-      console.log(data);
-      //return data ;
-    })
-    .then(function(project){
-      //console.log(multiquestion);
-      /*var user = result[0];
-      var project = result[1];
-      var issues = result[2];
 
-      res.render('./views/issues/index', {user: user, project: project, issues: issues});*/
-     //console.log(project);
-    })
-    .then(undefined, function(err){
-      //Handle error
-    })
-
-/* PostedAnswers.aggregate([
-    // Join with user_info table
-    {
-        $lookup:{
-            from: "registercandidates",       // other table name
-            localField: "user_id",   // name of users table field
-            foreignField: "_id", // name of userinfo table field
-            as: "user_info"         // alias for userinfo table
-        }
-    },
-    {   $unwind:"$user_info" },     // $unwind used for getting data in object or for one record only
-
-    // Join with Multi option table
-    {
-        $lookup:{
-            from: "multipleoptionquestions", 
-            localField: "question_id", 
-            foreignField: "_id",
-            as: "multioption_answer"
-        },
-        pipeline: [
-          { 
-            $match:{
-              $and:
-                [ 
-                  { "qtype": { "$eq": 'multi' } }
-               ]
-            } 
-          }
-        ]
-    },
-    {   $unwind:"$multioption_answer" },
-
-    // Join with Java Code table
-    {
-        $lookup:{
-            from: "codequestions", 
-            localField: "question_id", 
-            foreignField: "_id",
-            as: "javacode_answer"
-        },
-        pipeline: [
-          { 
-            $match:{
-              $and:[{ "qtype": { "$eq": 'code' } }]
-            } 
-          }
-        ]
-    },
-    {   $unwind:"$javacode_answer" },
-
-    // define some conditions here 
-    {
-        $match:{
-            $and:[{"user_is" : id}]
-        }
-    },
-
-    // define which fields are you want to fetch
-   {   
-        $project:{
-            email : 1,
-            userName : 1,
-            userPhone : "$user_info.email",
-            
-        } 
+  var userData = {
+    userDetails: {},
+    questions: []
     }
-  ]).exec(function ( e, d ) {
-    console.log( d )            
-});*/
-
+    RegisterUser.find({ _id : id}).exec(function (err, user) {
+    if(user){
+        PostedAnswers.find({user_id: user[0]._id}).exec(function (err, answers) {
+                      userData.userDetails = user[0];
+            async.each(answers, function (ans, callback) {
+             // console.log('ans', ans);
+                  MultiQuestion.findById({_id: ans.question_id }).exec(function (err, mQuestion) {
+                    CodeQuestion.findById({_id: ans.question_id}).exec(function (err, cQuestion) {
+                  //   console.log("cQuestion",cQuestion);
+                    // console.log("mQuestion",mQuestion);
+                        var q = {};
+                        if(mQuestion)q.question = mQuestion;
+                        if(cQuestion)q.question = cQuestion;
+                        q.postAnswer = ans;
+                        userData.questions.push(q);
+                        callback();
+                    })
+                  })
+                 },
+                 function (err) {
+                  if (err) { return res.status(404).send('Not Found'); } else { return res.status(200).json(userData); }
+                }
+              );
+        })
+        }else { return res.status(200).json('No user Details Found'); }
+  });
 });
-
-/*,function (error, data) {
-  return res.json(data);
-  //handle error case also
-  }*/
 
 /* Delete question*/
 router.delete('/deleteuser/:id',isValidUser, function(req, res, next) {
