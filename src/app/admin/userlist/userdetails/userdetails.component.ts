@@ -14,7 +14,7 @@ export class UserdetailsComponent implements OnInit {
   ngOnInit() {
     this.userService.registeruserByID(this._router.snapshot.paramMap.get('id')).subscribe(
         qinfo =>{
-          this.userinfo = qinfo;console.log(this.userinfo);
+          this.userinfo = qinfo;//console.log(this.userinfo);
         });
     
   }
